@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'neighbourhood_app',
     'bootstrap5',
+    'location_field.apps.DefaultConfig',
 ]
 
 MIDDLEWARE = [

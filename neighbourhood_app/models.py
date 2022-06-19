@@ -11,6 +11,9 @@ class Admin(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 class Neighborhood(models.Model):
     name = models.CharField(max_length=50)
     location=models.CharField(max_length=50,null=True)
@@ -39,11 +42,16 @@ class Neighborhood(models.Model):
         self.occupants=occupants+add_occupant
         self.save()
 
-
+    def __str__(self):
+        return self.name
 class User(AbstractUser):
     name=models.CharField(max_length=50,null=True)
     neighborhood=models.ForeignKey(Neighborhood,on_delete=models.CASCADE,related_name='users',null=True)
     email=models.EmailField(max_length=100,null=True)
+    password=models.CharField(max_length=50,null=True)
+
+    def __str__(self):
+        return self.name
 
 class Business(models.Model):
     name=models.CharField(max_length=50)

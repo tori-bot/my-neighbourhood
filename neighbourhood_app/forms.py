@@ -10,3 +10,8 @@ class LoginForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email','password')
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio', 'profile_picture')

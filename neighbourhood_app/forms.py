@@ -2,9 +2,10 @@ from django import forms
 from .models import Profile, User
 
 class SignupForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
     class Meta:
         model = User
-        fields = ('name','neighborhood','email','password')
+        fields = ('name','neighborhood','email')
 
 class LoginForm(forms.ModelForm):
     class Meta:

@@ -12,7 +12,7 @@ from django.dispatch import receiver
 # Create your models here.
 class Admin(models.Model):
     name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100)
+    email = models.EmailField(max_length=300)
 
     def __str__(self):
         return self.name
@@ -50,8 +50,8 @@ class Neighborhood(models.Model):
 class User(AbstractUser):
     name=models.CharField(max_length=50,null=True)
     neighborhood=models.ForeignKey(Neighborhood,on_delete=models.CASCADE,related_name='users',null=True)
-    email=models.EmailField(max_length=100,null=True)
-    password=models.CharField(max_length=50,null=True)
+    email=models.EmailField(max_length=300,null=True)
+    password=models.CharField(max_length=200,null=True)
     profile_picture=models.ImageField(upload_to='profilepics/',null=True)
 
     def __str__(self):

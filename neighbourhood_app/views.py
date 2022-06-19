@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 
 from neighbourhood_app.forms import SignupForm
 
@@ -10,17 +11,15 @@ def signup(request):
     form = SignupForm()
     if request.method == 'POST':
         form = SignupForm(
-            request.POST, request.FILES, instance=profile)
-        if profile_form.is_valid():
-            profile_form.save()
+            request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
 
             return redirect('home')
         else:
             return HttpResponse('Please fill the form correctly.')
     else:
         context = {
-            'profile_form': profile_form,
-            'user': user,
-            'profile': profile
+            'form': form,
         }
     return render(request,'signup.html',context)

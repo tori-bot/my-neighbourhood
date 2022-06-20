@@ -94,6 +94,7 @@ def neighborhood_form(request,id):
         return render(request, 'neighborhood_form.html', context)
 
 def neighborhood(request,id):
+    current_user=request.user            
     user = User.objects.get(id=id)
     profile = Profile.objects.get(user=user)
     neighborhood=Neighborhood.objects.filter(id=user.id).first()

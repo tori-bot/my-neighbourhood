@@ -14,6 +14,7 @@ from django.dispatch import receiver
 
 class Neighborhood(models.Model):
     name = models.CharField(max_length=50)
+    landmark=models.ImageField(upload_to='landmarks/',null=True, blank=True)
     location=models.CharField(max_length=50,null=True)
     occupants=models.IntegerField()
     user=models.OneToOneField(User,on_delete=models.CASCADE,null=True)

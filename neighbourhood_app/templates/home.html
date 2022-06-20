@@ -3,6 +3,23 @@
 {% block content %}
 {{block.super}}
 <div class="row jumbo">
-    <img class="jumbo_img" src="https://media.istockphoto.com/vectors/small-business-people-and-building-set-shops-and-stores-cafe-and-vector-id1317288977?k=20&m=1317288977&s=612x612&w=0&h=s3S_T9ZvlaK_FXXSqlVuZeaGKbIsqO98Zjl5O2-yosw=" alt="">
+    <div class="col-md-6"><img class="jumbo_img" src="https://media.istockphoto.com/vectors/diverse-people-team-with-social-chat-bubbles-vector-id1162593055?k=20&m=1162593055&s=612x612&w=0&h=6rxh29OpFhvyigNWFyf69IX9G20p6oLcsC5da7E2eC4=" alt=""></div>
+    <div class="col-md-6 ">
+        <h2 class="header-content">Join a tight-knit community to enhance your life experience.</h2>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+<a href="{% url 'neighborhood_form' user.id %} "><button class="join">Join a Neighborhood</button></a>
+            </div> 
+            <div class="col-md-6">
+                <a href="{% url 'business_form' user.id %}  "><button class="registerb">Register your Business </button></a>
+            </div>      
+        </div>
+        
+        
+        
+        
+    </div>
+    
 </div>
 {% endblock %}

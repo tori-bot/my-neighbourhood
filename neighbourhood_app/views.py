@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Neighborhood, User,Profile
-from .forms import ProfileForm,NeighborhoodForm
+from .forms import BusinessForm, ProfileForm,NeighborhoodForm
 
 
 
@@ -79,7 +79,7 @@ def neighborhood_form(request,id):
         if form.is_valid():
             form.save()
 
-            return redirect('home')
+            return redirect('neighborhood')
         else:
             return HttpResponse('Please fill the form correctly.')
     else:
@@ -100,3 +100,26 @@ def neighborhood(request,id):
         'neighborhood': neighborhood
     }
     return render(request, 'neighborhood.html', context)
+
+def business_form(request,id):
+    current_user= request.user
+    user = User.objects.get(id=id)
+    profile = Profile.objects.get(user=user)
+    form = BusinessForm()
+    if request.method == 'POST':
+        form = BusinessForm(
+            request.POST)
+        if form.is_valid():
+            form.save()
+
+            return redirect('business')
+        else:
+            return HttpResponse('Please fill the form correctly.')
+    else:
+        context = {
+            'form': form,
+            'user': user,
+            'profile': profile
+        }
+        return render(request, 'business_form.html', context)
+

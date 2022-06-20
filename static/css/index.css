@@ -11,12 +11,39 @@ body{
 .brand{
     color:teal;
 }
+.navbar-brand{
+    color:teal;
+    font-size: large;
+}
+}
 .register-img{
     object-fit: cover;
     height: 40vh;
 }
 .register{
     padding-top:20vh;
+}
+.join{
+    background-color: transparent;
+    color: black;
+    border-radius: 5px;
+    padding: 1vh 2vw;
+    border: 1px solid teal;
+}
+.join:hover{
+    background-color: teal;
+    color: white;
+}
+.registerb:hover{
+    background-color: teal;
+    color: white;
+}
+.registerb{
+    background-color: transparent;
+    color: black;
+    border-radius: 5px;
+    padding: 1vh 2vw;
+    border: 1px solid teal;
 }
 .pretty_button{
     background-color: transparent;
@@ -33,9 +60,15 @@ body{
 .jumbo{
     
 }
+
+.header-content{
+    margin-top: 30vh;
+    text-align: center;
+    margin-bottom: 5vh;
+}
 .jumbo img{
-    object-fit: cover;
-    height: 60vh;
+    /* object-fit: cover; */
+    height: 100vh;
 }
 /* profile */
 .profilepic{

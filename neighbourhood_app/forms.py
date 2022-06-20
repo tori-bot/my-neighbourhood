@@ -10,6 +10,11 @@ class NeighborhoodForm(forms.ModelForm):
     class Meta:
         model=Neighborhood
         fields = ('name','location','occupants','user')
+
+class BusinessForm(forms.ModelForm):
+    class Meta:
+        model=Business
+        fields = ('name','user','neighborhood','email')
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile

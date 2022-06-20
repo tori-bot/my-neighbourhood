@@ -36,7 +36,7 @@ def profile(request):
     current_user = request.user
     user = User.objects.get(id=current_user.id)
     profile = Profile.get_profile_by_id(user.id)
-    neighborhood=Neighborhood.objects.filter(id=current_user.id)
+    neighborhood=Neighborhood.objects.filter(id=current_user.id).first()
     business=Business.objects.filter(id=current_user.id)
 
     context = {
@@ -129,13 +129,15 @@ def business_form(request,id):
         return render(request, 'business_form.html', context)
 
 def business(request,id):
+    current_user=request.user
     user = User.objects.get(id=id)
     profile = Profile.objects.get(user=user)
-    # business=Business.get_business(id)
-    business=Business.objects.filter(id=user.id)
+    neighborhood=Neighborhood.objects.get  (id=current_user.id)
+    business=Business.objects.filter(neighborhood=neighborhood)
     context = {
         'user': user,
         'profile': profile,
-        'business': business
+        'business': business,
+        'neighborhood': neighborhood
     }
     return render(request, 'business.html', context)

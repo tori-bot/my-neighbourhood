@@ -2,9 +2,27 @@
 
 {% block content %}
 {{block.super}}
-<h1>Business</h1>
-{% for item in business %}
+<div class="container">
+  <h1>Businesses in {{neighborhood.name}} </h1>
+<div class="row">
+  {% for item in business %}
+    <div class="col-md-4">
+        <div class="card ">
+            <a href="{% url 'business' item.id %} ">
+           <img  src="{{item.picture.url}}" class="card_image  img-responsive" alt="">
+          </a>
+            
+          <h3>{{item.name}} </h3>
+          <p>{{item.neighborhood.name}}</p> </p>
+          <a href="#" class=""><button class="pretty_button">Reach out</button> </a>
+          
+          </div>
+    </div>
+
 {% empty %}
 <h2>No registered Businesses yet.</h2>
 {% endfor %}
-{% endblock %}
+{% endblock %}  
+</div>  
+</div>
+

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %} 
+{% block content %}
+
+{{block.super}}
+<h1>Neighborhood Register</h1>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form  action="{% url 'post_form' user.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        
+            {{ form|crispy }}
+        
+            
+            <input type="submit" class="btn btn-success btn-lg" value="Post">
+          </form> 
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+
+{% endblock %}

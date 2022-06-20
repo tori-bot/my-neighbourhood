@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Neighborhood,Business, User,Profile
-from .forms import BusinessForm, ProfileForm,NeighborhoodForm
+from .forms import BusinessForm, PostForm, ProfileForm,NeighborhoodForm
 
 
 
@@ -163,3 +163,26 @@ def search(request):
         'profile': profile
         }
     return render(request, 'searchit.html',context)
+
+# posts
+def business_form(request,id):
+    current_user= request.user
+    user = User.objects.get(id=id)
+    profile = Profile.objects.get(user=user)
+    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(
+            request.POST)
+        if form.is_valid():
+            form.save()
+
+            return redirect('neighborhood')
+        else:
+            return HttpResponse('Please fill the form correctly.')
+    else:
+        context = {
+            'form': form,
+            'user': user,
+            'profile': profile
+        }
+        return render(request, 'post_form.html', context)

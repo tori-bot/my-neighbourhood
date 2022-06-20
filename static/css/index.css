@@ -37,3 +37,10 @@ body{
     object-fit: cover;
     height: 60vh;
 }
+/* profile */
+.profilepic{
+    object-fit: cover;
+    width: 8em;
+    height: 8em;
+    border-radius: 50%;
+}

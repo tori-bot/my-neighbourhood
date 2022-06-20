@@ -1,1 +1,24 @@
-<h1>my profile</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+{{block.super}}
+
+
+<div class="row">
+    <div class="col-md-5">
+    
+        
+        <img class="profilepic" src="{{profile.profile_picture.url}} " alt="">
+    <br>
+        <h3>{{profile.user.username}} </h3>
+<br>
+        <p>{{profile.bio}} </p>
+    
+        
+    </div>
+    <div class="col-md-7">
+
+    </div>
+    
+</div>
+{% endblock %}

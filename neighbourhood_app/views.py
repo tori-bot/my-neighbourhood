@@ -1,7 +1,7 @@
 
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import User,Profile
+from .models import Neighborhood, User,Profile
 from .forms import ProfileForm,NeighborhoodForm
 
 
@@ -21,7 +21,7 @@ def profile_form(request, id):
         if profile_form.is_valid():
             profile_form.save()
 
-            return redirect('home')
+            return redirect('profile')
         else:
             return HttpResponse('Please fill the form correctly.')
     else:
@@ -89,3 +89,14 @@ def neighborhood_form(request,id):
             'profile': profile
         }
         return render(request, 'neighborhood_form.html', context)
+
+def neighborhood(request,id):
+    user = User.objects.get(id=id)
+    profile = Profile.objects.get(user=user)
+    neighborhood=Neighborhood.objects.get(id=user.id)
+    context = {
+        'user': user,
+        'profile': profile,
+        'neighborhood': neighborhood
+    }
+    return render(request, 'neighborhood.html', context)

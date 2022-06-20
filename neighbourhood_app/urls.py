@@ -10,4 +10,6 @@ urlpatterns = [
          views.user_profile, name='user_profile'),
 
     path('neighborhood_form/<int:id>/', views.neighborhood_form, name='neighborhood_form'),
+    path('neighborhood/<int:id>/', views.neighborhood, name='neighborhood'),
+
 ]

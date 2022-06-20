@@ -1,22 +1,15 @@
 from django import forms
 from .models import Profile,Business,Neighborhood
 
-# class SignupForm(forms.ModelForm):
-#     password = forms.CharField(widget=forms.PasswordInput())
-#     class Meta:
-#         model = User
-#         fields = ('name','neighborhood','email','profile_picture','password')
-
-# class LoginForm(forms.ModelForm):
-#     class Meta:
-#         model = User
-#         fields = ('email','password')
-
 class BusinessForm(forms.ModelForm):
     class Meta:
         model = Business
         fields = ('name','user','neighborhood','email')
-
+ 
+class NeighborhoodForm(forms.ModelForm):
+    class Meta:
+        model=Neighborhood
+        fields = ('name','location','occupants','user')
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile

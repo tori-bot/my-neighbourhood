@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import User,Profile
-from .forms import ProfileForm
+from .forms import ProfileForm,NeighborhoodForm
 
 
 
@@ -66,3 +66,26 @@ def user_profile(request, id):
 
     }
     return render(request, 'user_profile.html', context)
+
+    # neighborhood views
+def neighborhood_form(request,id):
+    current_user= request.user
+    user = User.objects.get(id=id)
+    profile = Profile.objects.get(user=user)
+    form = NeighborhoodForm()
+    if request.method == 'POST':
+        form = NeighborhoodForm(
+            request.POST)
+        if form.is_valid():
+            form.save()
+
+            return redirect('home')
+        else:
+            return HttpResponse('Please fill the form correctly.')
+    else:
+        context = {
+            'form': form,
+            'user': user,
+            'profile': profile
+        }
+        return render(request, 'neighborhood_form.html', context)

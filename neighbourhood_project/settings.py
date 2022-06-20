@@ -23,6 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--tm#^3r!w9u!e@2)iitkm8+h0x24-t@iflkb)qczv34*5080-p'
 
+
+# CLOUDINARY_URL='cloudinary://641878439427965:0JG9bP_8I9ankDR7lKqjjGzROFg@dnsz8shfx'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dnsz8shfx',
+    'API_KEY': '641878439427965',
+    'API_SECRET': '0JG9bP_8I9ankDR7lKqjjGzROFg'
+}
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -41,12 +50,12 @@ INSTALLED_APPS = [
     'neighbourhood_app',
     'bootstrap5',
     # 'location_field.apps.DefaultConfig',
-    'django.contrib.staticfiles',
+    # 'django.contrib.staticfiles',
     'cloudinary_storage',
     'cloudinary',
 ]
 
-AUTH_USER_MODEL = 'neighbourhood_app.User'
+# AUTH_USER_MODEL = 'neighbourhood_app.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

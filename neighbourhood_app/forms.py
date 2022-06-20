@@ -1,16 +1,16 @@
 from django import forms
-from .models import Profile, User,Business,Neighborhood
+from .models import Profile,Business,Neighborhood
 
-class SignupForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-    class Meta:
-        model = User
-        fields = ('name','neighborhood','email','profile_picture','password')
+# class SignupForm(forms.ModelForm):
+#     password = forms.CharField(widget=forms.PasswordInput())
+#     class Meta:
+#         model = User
+#         fields = ('name','neighborhood','email','profile_picture','password')
 
-class LoginForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('email','password')
+# class LoginForm(forms.ModelForm):
+#     class Meta:
+#         model = User
+#         fields = ('email','password')
 
 class BusinessForm(forms.ModelForm):
     class Meta:

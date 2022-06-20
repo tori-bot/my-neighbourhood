@@ -4,25 +4,20 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from datetime import date
-
+from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
 # Create your models here.
-class Admin(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=300)
-    neighborhood_administered = models.CharField(max_length=300,null=True)
 
-    def __str__(self):
-        return self.name
 
 class Neighborhood(models.Model):
     name = models.CharField(max_length=50)
     location=models.CharField(max_length=50,null=True)
     occupants=models.IntegerField()
-    admin=models.ForeignKey(Admin,on_delete=models.CASCADE)
+    user=models.OneToOneField(User,on_delete=models.CASCADE,null=True)
+    
 
     def create_neighbourhood(self):
         self.save()
@@ -48,20 +43,10 @@ class Neighborhood(models.Model):
 
     def __str__(self):
         return self.name
-class User(AbstractUser):
-    # id=models.PositiveIntegerField(primary_key=True)
-    name=models.CharField(max_length=50,null=True)
-    neighborhood=models.ForeignKey(Neighborhood,on_delete=models.CASCADE,related_name='neighbors',null=True)
-    email=models.EmailField(max_length=300,null=True)
-    password=models.CharField(max_length=200,null=True)
-    profile_picture=models.ImageField(upload_to='profilepics/',null=True)
-
-    def __str__(self):
-        return str(self.name)
 
 class Business(models.Model):
     name=models.CharField(max_length=50)
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     email=models.EmailField(max_length=100)
 

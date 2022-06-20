@@ -93,6 +93,13 @@ body{
     margin: 1vh 2vw;
     font-size: 2em;
 }
+.hood{
+    margin-top: 10vh;
+}
+.landmark{
+    border: 10px solid teal;
+    border-radius: 5px;
+}
 /* profile */
 .profilepic{
     object-fit: cover;

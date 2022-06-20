@@ -1,12 +1,14 @@
 from django.db import models
 
-from django.contrib.auth.models import AbstractUser
+
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
-from datetime import date
+
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+
+
 
 
 # Create your models here.
@@ -77,7 +79,7 @@ class Business(models.Model):
 
     @classmethod
     def search_business(cls,search_term):
-        business=cls.objects.filter(name__icontains=search_term).all()
+        business=cls.objects.filter(name__icontains=search_term)
         return business
 
     def __str__(self):
@@ -119,3 +121,14 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user
+
+class Posts(models.Model):
+    user=models.ForeignKey(User, related_name="posts",on_delete=models.CASCADE)
+    neighborhood=models.ForeignKey(Neighborhood, related_name="neighbor_posts", on_delete=models.CASCADE)
+    title=models.CharField(max_length=100)
+    image=models.ImageField(upload_to='post_images/')
+    published=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+    

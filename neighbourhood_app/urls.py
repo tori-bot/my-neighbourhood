@@ -15,4 +15,6 @@ urlpatterns = [
     path('business_form/<int:id>/', views.business, name='business_form'),
     path('business/<int:id>/', views.business, name='business'),
 
+    path('search/', views.search, name='search'),
+
 ]

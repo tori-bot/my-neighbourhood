@@ -142,3 +142,24 @@ def business(request,id):
         'neighborhood': neighborhood
     }
     return render(request, 'business.html', context)
+
+def search(request):
+    current_user= request.user
+    user = User.objects.get(id=current_user.id)
+    profile = Profile.get_profile_by_id(user.id)
+    if 'search' in request.GET and request.GET["search"]:
+        search_term = request.GET.get("search")
+        print(f'\n {search_term} \n')
+        searched_business = Business.search_business(search_term)
+        print(f'\n {searched_business} \n')
+        message = f"{search_term}"    
+    else:
+        message = "Take this chance to search for a business in your neighborhood"
+
+    context={
+        'message': message,
+        'business': searched_business,
+        'user': user,
+        'profile': profile
+        }
+    return render(request, 'searchit.html',context)

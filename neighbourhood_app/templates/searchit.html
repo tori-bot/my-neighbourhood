@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+{{block.super}}
+
+<h1>Search<span class="span_text">Results</span> </h1>
+<div class="row">
+<div class="row">
+    {% for item in business %}
+    <div class="col-md-4">
+        <div class="card ">
+            <a href="{% url 'business' item.id %} ">
+           <img  src="{{item.picture.url}}" class="card_image  img-responsive" alt="">
+          </a>
+            
+          <h3>{{item.name}} </h3>
+          <p>{{item.neighborhood.name}}</p> </p>
+          <a href="#" class=""><button class="pretty_button">Reach out</button> </a>
+          
+          </div>
+    </div>
+  {% empty %}
+  <h2>No profiles that match your search</h2>
+  {% endfor %}
+</div> 
+{% endblock %}

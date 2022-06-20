@@ -37,8 +37,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -49,6 +52,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'neighbourhood_app',
     'bootstrap5',
+    'bootstrapform',
+    "crispy_forms",
+    "crispy_bootstrap5",
     # 'location_field.apps.DefaultConfig',
     # 'django.contrib.staticfiles',
     'cloudinary_storage',

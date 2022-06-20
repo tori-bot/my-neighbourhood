@@ -1,6 +1,8 @@
 
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
+from .models import User,Profile
+from .forms import ProfileForm
 
 
 
@@ -9,43 +11,58 @@ from django.shortcuts import redirect, render
 def home(request):
     return render(request,'home.html')
 
-# def signup(request):
-#     form = SignupForm()
-#     if request.method == 'POST':
-#         form = SignupForm(
-#             request.POST, request.FILES)
-#         print(request.POST.get('password'))
-#         if form.is_valid():
-#             form.save()
-#             # name=form.cleaned_data.get('name')
-#             # neighborhood=form.cleaned_data.get('neighborhood')
-#             # email=form.cleaned_data.get('email')
-#             # password=form.cleaned_data.get('password')
-#             # user = authenticate(name=name,email=email, neighborhood=neighborhood,password=password)
-#             # login(request,user)
+def profile_form(request, id):
+    user = User.objects.get(id=id)
+    profile = Profile.objects.get(user=user)
+    profile_form = ProfileForm()
+    if request.method == 'POST':
+        profile_form = ProfileForm(
+            request.POST, request.FILES, instance=profile)
+        if profile_form.is_valid():
+            profile_form.save()
 
-#             return redirect('home')
-#         else:
-#             return HttpResponse('Please fill the form correctly.')
-#     else:
-#         context = {
-#             'form': form,
-#         }
-#     return render(request,'django_registration/registration_form.html',context)
+            return redirect('home')
+        else:
+            return HttpResponse('Please fill the form correctly.')
+    else:
+        context = {
+            'profile_form': profile_form,
+            'user': user,
+            'profile': profile
+        }
+        return render(request, 'profile_form.html', context)
 
-# def login(request):
-#     form = LoginForm()
-#     if request.method == 'POST':
-#         form = LoginForm(
-#             request.POST)
-#         if form.is_valid():
-#             form.save()
+def profile(request):
+    current_user = request.user
+    user = User.objects.get(id=current_user.id)
+    profile = Profile.get_profile_by_id(user.id)
+    # projects=Project.objects.filter(user=user.id).order_by('-published')
 
-#             return redirect('home')
-#         else:
-#             return HttpResponse('Please fill the form correctly.')
-#     else:
-#         context = {
-#             'form': form,
-#         }
-#     return render(request,'registration/login.html',context)
+    context = {
+        'profile': profile,
+        'user': user,
+        
+    }
+    return render(request, 'profile.html', context)
+
+def user_profile(request, id):
+    current_user = request.user
+    user = User.objects.get(id=current_user.id)
+    current_profile = Profile.get_profile_by_id(user.id)
+    selected = get_object_or_404(User, id= id)
+    print({selected})
+
+    if selected == user:
+        return redirect('home')
+    
+    profile=Profile.get_profile_by_id(selected.id)
+    # projects=Project.objects.filter(user=selected.id)
+
+    context = {
+        'profile': profile,
+        
+        'user': user,
+        'current_profile': current_profile
+
+    }
+    return render(request, 'user_profile.html', context)

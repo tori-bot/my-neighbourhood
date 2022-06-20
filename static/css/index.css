@@ -29,3 +29,11 @@ body{
     background-color: teal;
     color:white;
 }
+/* home page */
+.jumbo{
+    
+}
+.jumbo img{
+    object-fit: cover;
+    height: 60vh;
+}

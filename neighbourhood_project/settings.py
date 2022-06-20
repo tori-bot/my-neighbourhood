@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'neighbourhood_app',
     'bootstrap5',
-    'location_field.apps.DefaultConfig',
+    # 'location_field.apps.DefaultConfig',
+    'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 AUTH_USER_MODEL = 'neighbourhood_app.User'
@@ -68,6 +71,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+        
             ],
         },
     },
@@ -130,6 +135,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+MEDIA_URL = '/media/'
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

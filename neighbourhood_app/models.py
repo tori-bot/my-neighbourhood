@@ -13,7 +13,7 @@ from django.dispatch import receiver
 class Admin(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=300)
-    neighborhood_admin = models.CharField(max_length=300,null=True)
+    neighborhood_administered = models.CharField(max_length=300,null=True)
 
     def __str__(self):
         return self.name
@@ -49,14 +49,15 @@ class Neighborhood(models.Model):
     def __str__(self):
         return self.name
 class User(AbstractUser):
+    # id=models.PositiveIntegerField(primary_key=True)
     name=models.CharField(max_length=50,null=True)
-    neighborhood=models.ForeignKey(Neighborhood,on_delete=models.CASCADE,related_name='users',null=True)
+    neighborhood=models.ForeignKey(Neighborhood,on_delete=models.CASCADE,related_name='neighbors',null=True)
     email=models.EmailField(max_length=300,null=True)
     password=models.CharField(max_length=200,null=True)
     profile_picture=models.ImageField(upload_to='profilepics/',null=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 class Business(models.Model):
     name=models.CharField(max_length=50)

@@ -1,7 +1,7 @@
 
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Neighborhood, User,Profile
+from .models import Neighborhood,Business, User,Profile
 from .forms import BusinessForm, ProfileForm,NeighborhoodForm
 
 
@@ -36,11 +36,14 @@ def profile(request):
     current_user = request.user
     user = User.objects.get(id=current_user.id)
     profile = Profile.get_profile_by_id(user.id)
-    # projects=Project.objects.filter(user=user.id).order_by('-published')
+    neighborhood=Neighborhood.objects.filter(id=current_user.id)
+    business=Business.objects.filter(id=current_user.id)
 
     context = {
         'profile': profile,
         'user': user,
+        'neighborhood':neighborhood,
+        'business': business
         
     }
     return render(request, 'profile.html', context)
@@ -93,13 +96,15 @@ def neighborhood_form(request,id):
 def neighborhood(request,id):
     user = User.objects.get(id=id)
     profile = Profile.objects.get(user=user)
-    neighborhood=Neighborhood.objects.get(id=user.id)
+    neighborhood=Neighborhood.objects.filter(id=user.id).first()
     context = {
         'user': user,
         'profile': profile,
         'neighborhood': neighborhood
     }
     return render(request, 'neighborhood.html', context)
+
+# business
 
 def business_form(request,id):
     current_user= request.user
@@ -123,3 +128,14 @@ def business_form(request,id):
         }
         return render(request, 'business_form.html', context)
 
+def business(request,id):
+    user = User.objects.get(id=id)
+    profile = Profile.objects.get(user=user)
+    # business=Business.get_business(id)
+    business=Business.objects.filter(id=user.id)
+    context = {
+        'user': user,
+        'profile': profile,
+        'business': business
+    }
+    return render(request, 'business.html', context)

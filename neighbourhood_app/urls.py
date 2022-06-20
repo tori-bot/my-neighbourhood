@@ -12,6 +12,7 @@ urlpatterns = [
     path('neighborhood_form/<int:id>/', views.neighborhood_form, name='neighborhood_form'),
     path('neighborhood/<int:id>/', views.neighborhood, name='neighborhood'),
 
-    path('business_form/<int:id>/', views.business_form, name='business_form'),
+    path('business_form/<int:id>/', views.business, name='business_form'),
+    path('business/<int:id>/', views.business, name='business'),
 
 ]

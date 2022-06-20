@@ -46,6 +46,7 @@ class Neighborhood(models.Model):
 
 class Business(models.Model):
     name=models.CharField(max_length=50)
+    picture=models.ImageField(upload_to='businesspics/',null=True, blank=True)
     user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     email=models.EmailField(max_length=100)
@@ -56,9 +57,14 @@ class Business(models.Model):
     def delete_business(self):
         self.delete()
 
+    # @classmethod
+    # def find_business(cls,business_id):
+    #     business=Business.objects.filter(id=business_id).first()
+    #     return business
+
     @classmethod
-    def find_business(cls,business_id):
-        business=Business.objects.filter(id=business_id).first()
+    def get_business(cls,id):
+        business = Business.objects.filter(user__id = id).first()
         return business
 
     def update_business(self,name,user,neighborhood,email):

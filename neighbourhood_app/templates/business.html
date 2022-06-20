@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{block.super}}
+<h1>Business</h1>
+{% for item in business %}
+{% empty %}
+<h2>No registered Businesses yet.</h2>
+{% endfor %}
+{% endblock %}

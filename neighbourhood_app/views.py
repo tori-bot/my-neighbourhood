@@ -1,4 +1,5 @@
 
+from ast import If
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Neighborhood,Business, Posts, User,Profile
@@ -77,6 +78,7 @@ def neighborhood_form(request,id):
     current_user= request.user
     user = User.objects.get(id=id)
     profile = Profile.objects.get(user=user)
+    
     form = NeighborhoodForm()
     if request.method == 'POST':
         form = NeighborhoodForm(
@@ -84,7 +86,7 @@ def neighborhood_form(request,id):
         if form.is_valid():
             form.save()
 
-            return redirect('neighborhood')
+            return redirect('home')
         else:
             return HttpResponse('Please fill the form correctly.')
     else:
@@ -99,8 +101,14 @@ def neighborhood(request,id):
     current_user=request.user            
     user = User.objects.get(id=id)
     profile = Profile.objects.get(user=user)
-    neighborhood=Neighborhood.objects.filter(id=user.id).first()
-    posts=Posts.objects.filter(neighborhood=neighborhood.id).order_by('-published')
+    hoods=Neighborhood.objects.all()
+    if hoods.count()<=0:
+        return redirect('home')
+    else:
+        neighborhood=Neighborhood.objects.filter(id=user.id).first()
+        posts=Posts.objects.filter(neighborhood=neighborhood.id).order_by('-published')
+    
+        
     context = {
         'user': user,
         'profile': profile,

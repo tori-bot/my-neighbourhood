@@ -9,7 +9,7 @@ class BusinessForm(forms.ModelForm):
 class NeighborhoodForm(forms.ModelForm):
     class Meta:
         model=Neighborhood
-        fields = ('name','location','occupants','user')
+        fields = ('name','landmark','location','occupants','user')
 
 class BusinessForm(forms.ModelForm):
     class Meta:

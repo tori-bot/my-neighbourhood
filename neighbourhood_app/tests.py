@@ -30,26 +30,26 @@ class NeighbourhoodTestCase(TestCase):
         self.new= NeighbourHood(name ='Nairobi',location = 'Nairobi',image = 'trial.jpg',description = 'I like your my hood',user = 'test',hood_logo= 'logo.jpeg', emergency_contact= '911',occupants_count ='10')
 
 
-    def test_save_image(self):
-        self.image.save_image()
-        image = NeighbourHood.objects.all()
+    def test_save_neighbourhood(self):
+        self.image.save_neighbourhood()
+        neighbourhood = NeighbourHood.objects.all()
         self.assertEqual(len(NeighbourHood),1)
 
-    def test_delete_image(self):
-        self.image.save_image()
-        self.image.delete_image()
-        image_list = NeighbourHood.objects.all()
+    def test_delete_neighbourhood(self):
+        self.image.save_neighbourhood()
+        self.image.delete_neighbourhood()
+        neighbourhood_list = NeighbourHood.objects.all()
         self.assertTrue(len(NeighbourHood)==0)
 
-    def test_get_all_images(self):
+    def test_get_all_neighbourhood(self):
        
-        self.image.save_image()
-        all_images = NeighbourHood.get_all_images()
+        self.image.save_neighbourhood()
+        all_neighbourhood = NeighbourHood.get_all_neighbourhood()
         self.assertTrue(len(NeighbourHood) < 1)
 
-    def test_get_one_image(self):
-        self.food.save_image()
-        one_pic = Post.get_one_image(self.food.id)
+    def test_get_one_neighbourhood(self):
+        self.food.save_neighbourhood()
+        one_pic = Post.get_one_neighbourhood(self.food.id)
         self.assertTrue(one_pic.name == self.picture.name)
 
 

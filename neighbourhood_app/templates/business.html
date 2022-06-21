@@ -3,7 +3,12 @@
 {% block content %}
 {{block.super}}
 <div class="container">
-  <h1>Businesses in {{neighborhood.name}} </h1>
+    <div class="row">
+        <div class="col-md-5"><h1>Businesses in {{neighborhood.name}} </h1></div>
+        <div class="col-md-3"><a href="{% url 'business_form' user.id %}  "><button class="registerb">Register your Business </button></a></div>
+    </div>
+  
+  
   <hr>
 <div class="row">
   {% for item in business %}
@@ -23,7 +28,25 @@
 {% empty %}
 <h2>No registered Businesses yet.</h2>
 {% endfor %}
-{% endblock %}  
-</div>  
+  
+</div> 
+ 
 </div>
+<div class="row contacts">
+    <h1>Contact us</h1>
+    <hr>
+    <div class="socials">
+        <a href="https://www.instagram.com/torimakena/"><i class="bi bi-instagram"></i></a>
+        <a href="https://twitter.com/Tori_makena"><i class="bi bi-twitter"></i></a>
+        <a href="https://github.com/tori-bot"><i class="bi bi-github"></i></a>
+        <a href="https://web.facebook.com/tori.makena.98"><i class="bi bi-facebook"></i></a>
+        <a href="https://wa.me/message/QVIDZP3PKX2XP1"><i class="bi bi-whatsapp"></i></a> 
+        <a href="mailto:makenavictoria1@gmail.com"><i class="bi bi-envelope"></i></a> 
+        </div>
 
+        <div class="footer">
+            <a>tori-bot   &copy 2022   Victoria Makena</a>
+        
+        </div>
+</div>
+{% endblock %}

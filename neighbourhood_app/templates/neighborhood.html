@@ -3,7 +3,12 @@
 {% block content %}
 {{block.super}}
 <div class="container">
-   <h1>{{neighborhood.name}}</h1>
+    <div class="row">
+        <div class="col-md-5"><h1>{{neighborhood.name}}</h1></div>
+        <div class="col-md-3"><a href="{% url 'neighborhood_form' user.id %} "><button class="join">Join a Neighborhood</button></a></div>
+    </div>
+   
+   
    <hr>
 <div class="row">
     <div class="col-md-2 hood">
@@ -13,12 +18,51 @@
         <h3>Hello {{user.username}}. </h3>
         <h4>Welcome to {{neighborhood.name}}. </h4>
         <p>We value community and our lives are centred around love and support of one another.</p>
+        <br>
+        <a href="{% url 'post_form' user.id %} "><button class="registerb">Post your thoughts</button> </a>
     </div>
     <div class="col-md-6">
         <img class="landmark" src="{{neighborhood.landmark.url}}" alt="" >
     </div>
 
-</div> 
+</div>
+
+<div class="row">
+    {% for item in posts %}
+    <div class="col-md-4">
+        <div class="card postcard">
+            <img src="{{item.image.url}} " alt="">
+            <br>
+            <h3>{{item.title}} </h3>
+            <p>{{item.user.username}} </p>
+            <br>
+            <p>{{item.post}} </p>
+            <br>
+            <p>{{item.published|timesince}} ago </p>
+        </div>
+    </div>
+    {% empty %}
+    <h3>No posts yet!</h3>
+    {% endfor %}
+</div>
+
+</div>
+<div class="row contacts">
+    <h1>Contact us</h1>
+    <hr>
+    <div class="socials">
+        <a href="https://www.instagram.com/torimakena/"><i class="bi bi-instagram"></i></a>
+        <a href="https://twitter.com/Tori_makena"><i class="bi bi-twitter"></i></a>
+        <a href="https://github.com/tori-bot"><i class="bi bi-github"></i></a>
+        <a href="https://web.facebook.com/tori.makena.98"><i class="bi bi-facebook"></i></a>
+        <a href="https://wa.me/message/QVIDZP3PKX2XP1"><i class="bi bi-whatsapp"></i></a> 
+        <a href="mailto:makenavictoria1@gmail.com"><i class="bi bi-envelope"></i></a> 
+        </div>
+
+        <div class="footer">
+            <a>tori-bot   &copy 2022   Victoria Makena</a>
+        
+        </div>
 </div>
 
 {% endblock %}

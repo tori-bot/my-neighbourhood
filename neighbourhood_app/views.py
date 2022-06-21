@@ -1,7 +1,7 @@
 
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Neighborhood,Business, User,Profile
+from .models import Neighborhood,Business, Posts, User,Profile
 from .forms import BusinessForm, PostForm, ProfileForm,NeighborhoodForm
 
 
@@ -78,7 +78,7 @@ def neighborhood_form(request,id):
     form = NeighborhoodForm()
     if request.method == 'POST':
         form = NeighborhoodForm(
-            request.POST)
+            request.POST,request.FILES)
         if form.is_valid():
             form.save()
 
@@ -98,10 +98,12 @@ def neighborhood(request,id):
     user = User.objects.get(id=id)
     profile = Profile.objects.get(user=user)
     neighborhood=Neighborhood.objects.filter(id=user.id).first()
+    posts=Posts.objects.filter(neighborhood=neighborhood.id).order_by('-published')
     context = {
         'user': user,
         'profile': profile,
-        'neighborhood': neighborhood
+        'neighborhood': neighborhood,
+        'posts': posts
     }
     return render(request, 'neighborhood.html', context)
 
@@ -114,7 +116,7 @@ def business_form(request,id):
     form = BusinessForm()
     if request.method == 'POST':
         form = BusinessForm(
-            request.POST)
+            request.POST, request.FILES)
         if form.is_valid():
             form.save()
 
@@ -165,18 +167,17 @@ def search(request):
     return render(request, 'searchit.html',context)
 
 # posts
-def business_form(request,id):
+def post_form(request,id):
     current_user= request.user
     user = User.objects.get(id=id)
     profile = Profile.objects.get(user=user)
     form = PostForm()
     if request.method == 'POST':
-        form = PostForm(
-            request.POST)
+        form = PostForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
 
-            return redirect('neighborhood')
+            return redirect('home')
         else:
             return HttpResponse('Please fill the form correctly.')
     else:

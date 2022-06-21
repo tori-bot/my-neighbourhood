@@ -100,6 +100,13 @@ body{
     border: 10px solid teal;
     border-radius: 5px;
 }
+.postcard{
+    margin-top: 5vh;
+}
+.postcard img{
+    object-fit: cover;
+    height: 30vh;
+}
 /* profile */
 .profilepic{
     object-fit: cover;

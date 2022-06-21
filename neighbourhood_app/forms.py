@@ -23,4 +23,4 @@ class ProfileForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model=Posts
-        fields = ('user','neighborhood','title','image')
+        fields = ('user','neighborhood','title','image','post')

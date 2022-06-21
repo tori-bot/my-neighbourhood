@@ -127,6 +127,7 @@ class Posts(models.Model):
     neighborhood=models.ForeignKey(Neighborhood, related_name="neighbor_posts", on_delete=models.CASCADE)
     title=models.CharField(max_length=100)
     image=models.ImageField(upload_to='post_images/')
+    post=models.TextField(null=True, blank=True)
     published=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

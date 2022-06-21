@@ -29,23 +29,23 @@ A computer with access to internet
 ## Setup Instructions
 NB: These commands are to be run on a linux/unix terminal.
 
-* Make sure you have python installed. If not, use this command
+* Make sure you have python installed. If not, use this command <br>
  ```sudo apt install python3.9```
-* Install Postgresql for ubuntu using
+* Install Postgresql for ubuntu using<br>
  ```sudo apt-get install postgresql```
-* Clone the repository  by typing this command on terminal
+* Clone the repository  by typing this command on terminal<br>
 ```git clone https://github.com/tori-bot/my_neighbourhood```
-* Enter your local directory by typing this command on the terminal after cloning the repository
+* Enter your local directory by typing this command on the terminal after cloning the repository<br>
  ```cd my_neighbourhood```
-* Install all requirements
+* Install all requirements<br>
  ```pip install -r requirements.txt```
-* Test the application ```python3 manage.py test```
-* Run the server on local machine 
+* Test the application<br> ```python3 manage.py test```
+* Run the server on local machine <br>
 ```python3 manage.py runserver```
-* Follow the local host link
+* Follow the local host link<br>
  ```127.0.0.1:8000``` 
  to view application on your browser.
-* For instructions on deployment to Heroku follow this document [Heroku deployment](https://gist.github.com/newtonkiragu/42f2500e56d9c2375a087233587eddd0)
+* For instructions on deployment to Heroku follow this document <br> [Heroku deployment](https://gist.github.com/newtonkiragu/42f2500e56d9c2375a087233587eddd0)
 
 ## Known Bugs
 * Dashboard conflicts

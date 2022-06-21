@@ -18,5 +18,6 @@ urlpatterns = [
     path('post_form/<int:id>/', views.post_form, name='post_form'),
 
     path('search/', views.search, name='search'),
+    path('leave_neighborhood/<int:id>/', views.leave_neighborhood, name='leave_neighborhood'),
 
 ]

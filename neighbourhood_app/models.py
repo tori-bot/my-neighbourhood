@@ -79,7 +79,7 @@ class Business(models.Model):
 
     @classmethod
     def search_business(cls,search_term):
-        business=cls.objects.filter(name__icontains=search_term)
+        business=cls.objects.filter(name__icontains=search_term).all()
         return business
 
     def __str__(self):
@@ -130,6 +130,16 @@ class Posts(models.Model):
     post=models.TextField(null=True, blank=True)
     published=models.DateTimeField(auto_now_add=True)
 
+
+    def create_post(self):
+        self.save()
+
+    def delete_post(self):
+        self.delete()
+
+    def save_post(self):
+        self.user
+        
     def __str__(self):
         return self.title
     

@@ -18,7 +18,8 @@
            <img  src="{{item.picture.url}}" class="card_image  img-responsive" alt="">
           </a>
             
-          <h3>{{item.name}} </h3>
+          <a class="user_link" href="{% url 'user_profile' item.user.id %} "><h3>{{item.name}} </h3></a>
+          
           <p>{{item.neighborhood.name}}</p> </p>
           <a href="#" class=""><button class="pretty_button">Reach out</button> </a>
           

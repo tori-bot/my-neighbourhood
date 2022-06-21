@@ -59,11 +59,13 @@ def user_profile(request, id):
         return redirect('home')
     
     profile=Profile.get_profile_by_id(selected.id)
+    business=Business.objects.filter(user=selected.id)
+
     # projects=Project.objects.filter(user=selected.id)
 
     context = {
         'profile': profile,
-        
+        'business': business,
         'user': user,
         'current_profile': current_profile
 
@@ -187,3 +189,15 @@ def post_form(request,id):
             'profile': profile
         }
         return render(request, 'post_form.html', context)
+
+def join_neighborhood(request,id):
+    neighborhood = Neighborhood.objects.get(id=id)
+    request.user.profile.neighborhood = neighborhood
+    request.user.profile.save()
+    return redirect('home')
+
+def leave_neighborhood(request,id):
+    neighborhood = Neighborhood.objects.get(id=id)
+    request.user.profile.neighborhood = None
+    request.user.profile.save()
+    return redirect('home')

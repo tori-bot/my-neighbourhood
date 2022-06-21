@@ -1,1 +1,66 @@
-<h1>User profile</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+{{block.super}}
+
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-3">
+    
+        
+        <img class="profilepic" src="{{profile.profile_picture.url}} " alt="">
+    <br>
+        <h3>{{profile.user.username}} </h3>
+<br>
+        <p>{{profile.bio}} </p>
+        <br>
+        <h4>{{neighborhood.name}} </h4>
+        
+        <h5><i class="bi bi-geo-alt-fill"></i> {{neighborhood.location}} </h5>
+    
+        
+    </div>
+    <div class="col-md-7">
+        <h4>{{business.count}} Businesses</h4>
+    <div class="row">
+        {% for item in business %}
+        <div class="col-md-8 ">
+          
+          
+          <div class="card ">
+            <a href="{% url 'business' item.id %} ">
+           <img  src="{{item.picture.url}}" class="card_image  img-responsive" alt="">
+          </a>
+            
+          <h3>{{item.name}} </h3>
+          <p>{{item.neighborhood.name}}</p> </p>
+          <a href="#" class=""><button class="pretty_button">Reach out</button> </a>
+          
+          </div> 
+        </div>
+        {% empty %}
+<h2>No posts yet!</h2>
+      {% endfor %}
+      </div>
+    </div>
+    
+</div>
+<div class="row contacts">
+    <h1>Contact us</h1>
+    <hr>
+    <div class="socials">
+        <a href="https://www.instagram.com/torimakena/"><i class="bi bi-instagram"></i></a>
+        <a href="https://twitter.com/Tori_makena"><i class="bi bi-twitter"></i></a>
+        <a href="https://github.com/tori-bot"><i class="bi bi-github"></i></a>
+        <a href="https://web.facebook.com/tori.makena.98"><i class="bi bi-facebook"></i></a>
+        <a href="https://wa.me/message/QVIDZP3PKX2XP1"><i class="bi bi-whatsapp"></i></a> 
+        <a href="mailto:makenavictoria1@gmail.com"><i class="bi bi-envelope"></i></a> 
+        </div>
+
+        <div class="footer">
+            <a>tori-bot   &copy 2022   Victoria Makena</a>
+        
+        </div>
+</div>
+{% endblock %}

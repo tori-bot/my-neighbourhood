@@ -5,11 +5,11 @@ An application that highlights all activities in a particular location radius.
 [Live site](https://mtaa-the-hood.herokuapp.com/)
 
 # Sample pages
-![Landing page](static/images/Screenshot_2022-06-21_05-50-30.png)
+![Landing page](static/images/Screenshot_2022-06-21_06-20-51.png)
 
- ![Profile page](static/images/Screenshot_2022-06-21_06-02-21.png)
+ ![Profile page](static/images/Screenshot_2022-06-21_06-20-14.png)
 
- ![Login page](static/images/Screenshot_2022-06-21_05-52-02.png)
+ ![Login page](static/images/Screenshot_2022-06-21_06-21-28.png)
 
 # Requirements
 A computer with access to internet

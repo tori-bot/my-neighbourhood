@@ -1,14 +1,16 @@
 
 
+import logging
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Neighborhood,Business, Posts, User,Profile
 from .forms import BusinessForm, PostForm, ProfileForm,NeighborhoodForm
-
+from django.contrib.auth.decorators import login_required
 
 
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def home(request):
     
     

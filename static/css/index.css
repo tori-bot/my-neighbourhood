@@ -5,8 +5,22 @@ body{
     text-decoration: none;
     color: grey;
 }
+.user_link a{
+    text-decoration: none;
+}
 .user_link:hover{
     color: teal;
+}
+#leavebtn{
+    padding-top: 3vh;
+}
+.newlink{
+    color: black;
+    
+}
+
+.dashcard{
+    margin-bottom: 3vh;
 }
 .brand{
     color:teal;
@@ -34,6 +48,17 @@ body{
     background-color: teal;
     color: white;
 }
+.leave{
+    background-color: transparent;
+    color: black;
+    border-radius: 5px;
+    padding: 1vh 2vw;
+    border: 1px solid rgb(238, 80, 32);
+}
+.leave:hover{
+    background-color: rgb(238, 80, 32);
+    color: white;
+}
 .registerb:hover{
     background-color: teal;
     color: white;
@@ -57,12 +82,10 @@ body{
     color:white;
 }
 /* home page */
-.jumbo{
-    
-}
+
 
 .header-content{
-    margin-top: 30vh;
+    margin-top: 25vh;
     text-align: center;
     margin-bottom: 5vh;
 }
@@ -117,6 +140,7 @@ body{
 .card_image{
     object-fit: cover;
     width: 100%;
+    height: 30vh;
 }
 .card{
     text-align: center;

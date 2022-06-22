@@ -5,9 +5,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-5"><h1>{{neighborhood.name}}</h1></div>
-        <div class="col-md-3"><a href="{% url 'neighborhood_form' user.id  %} "><button class="join">Join a Neighborhood</button></a></div>
-        <div class="col-md-3"><a href="{% url 'leave_neighborhood' user.id %} "><button class="join">Leave a Neighborhood</button></a></div>
-    </div>
+        
+        
    
    
    <hr>
@@ -35,7 +34,7 @@
             <img src="{{item.image.url}} " alt="">
             <br>
             <h3>{{item.title}} </h3>
-            <a class="user_link" href="{% url 'user_profile' item.user.id %} "><p>{{item.user.username}} </p></a>
+            <a class="newlink" href="{% url 'user_profile' item.id %} "><p>{{item.user.name}} </p></a>
             
             <br>
             <p>{{item.post}} </p>
@@ -48,7 +47,7 @@
     {% endfor %}
 </div>
 
-</div>
+</div></div>
 <div class="row contacts">
     <h1>Contact us</h1>
     <hr>

@@ -1,5 +1,5 @@
 
-from ast import If
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Neighborhood,Business, Posts, User,Profile
@@ -10,6 +10,8 @@ from .forms import BusinessForm, PostForm, ProfileForm,NeighborhoodForm
 
 # Create your views here.
 def home(request):
+    
+    
     return render(request,'home.html')
 
 def profile_form(request, id):
@@ -37,8 +39,9 @@ def profile(request):
     current_user = request.user
     user = User.objects.get(id=current_user.id)
     profile = Profile.get_profile_by_id(user.id)
-    neighborhood=Neighborhood.objects.filter(id=current_user.id).first()
-    business=Business.objects.filter(id=current_user.id)
+    # neighborhood=Neighborhood.objects.all()
+    neighborhood=Neighborhood.objects.filter(admin=current_user.id).first()
+    business=Business.objects.filter(user_id=current_user.id)
 
     context = {
         'profile': profile,
@@ -74,44 +77,54 @@ def user_profile(request, id):
     return render(request, 'user_profile.html', context)
 
     # neighborhood views
-def neighborhood_form(request,id):
+def neighborhood_form(request):
     current_user= request.user
-    user = User.objects.get(id=id)
-    profile = Profile.objects.get(user=user)
-    
+    # user = User.objects.get(id=id)
+    # profile = Profile.objects.get(user=user)
+
     form = NeighborhoodForm()
     if request.method == 'POST':
         form = NeighborhoodForm(
             request.POST,request.FILES)
         if form.is_valid():
-            form.save()
+            new=form.save(commit=False)
+            new.admin=current_user.profile
+            new.save()
 
-            return redirect('home')
+            return redirect('dashboard')
         else:
             return HttpResponse('Please fill the form correctly.')
     else:
         context = {
             'form': form,
-            'user': user,
-            'profile': profile
+            
         }
         return render(request, 'neighborhood_form.html', context)
 
 def neighborhood(request,id):
-    current_user=request.user            
-    user = User.objects.get(id=id)
-    profile = Profile.objects.get(user=user)
-    hoods=Neighborhood.objects.all()
-    if hoods.count()<=0:
-        return redirect('home')
-    else:
-        neighborhood=Neighborhood.objects.filter(id=user.id).first()
-        posts=Posts.objects.filter(neighborhood=neighborhood.id).order_by('-published')
+    neighborhood= Neighborhood.objects.get(id=id)
+    posts=Posts.objects.all().order_by('-published')
+    # print(neighborhood)
+    # posts=Posts.objects.filter(neighborhood=neighborhood)
+    # print(posts)
+
+    # current_user=request.user            
+    # user = User.objects.get(id=id)
+    # profile = Profile.objects.get(user=user)
+    # hoods=Neighborhood.objects.all()
+    # if hoods.count()<=0:
+    #     return redirect('home')
+    # else:
+        
+    #     neighborhood=Neighborhood.objects.filter(admin=current_user.id).first()
+    #     print({neighborhood})
+    #     posts=Posts.objects.all().order_by('-published')
+        # posts=Posts.objects.filter(neighborhood=neighborhood.user).order_by('-published')
     
         
     context = {
-        'user': user,
-        'profile': profile,
+        # 'user': user,
+        # 'profile': profile,
         'neighborhood': neighborhood,
         'posts': posts
     }
@@ -119,25 +132,25 @@ def neighborhood(request,id):
 
 # business
 
-def business_form(request,id):
+def business_form(request):
     current_user= request.user
-    user = User.objects.get(id=id)
-    profile = Profile.objects.get(user=user)
+    
     form = BusinessForm()
     if request.method == 'POST':
         form = BusinessForm(
             request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            new=form.save(commit=False)
+            new.user=current_user
+            new.save()
 
-            return redirect('business')
+            return redirect('home')
         else:
             return HttpResponse('Please fill the form correctly.')
     else:
         context = {
             'form': form,
-            'user': user,
-            'profile': profile
+            
         }
         return render(request, 'business_form.html', context)
 
@@ -145,8 +158,9 @@ def business(request,id):
     current_user=request.user
     user = User.objects.get(id=id)
     profile = Profile.objects.get(user=user)
-    neighborhood=Neighborhood.objects.get  (id=current_user.id)
-    business=Business.objects.filter(neighborhood=neighborhood)
+    neighborhood=Neighborhood.objects.filter(admin=current_user.id).first()
+    business=Business.objects.all()
+    # business=Business.objects.filter(neighborhood=neighborhood)
     context = {
         'user': user,
         'profile': profile,
@@ -179,13 +193,16 @@ def search(request):
 # posts
 def post_form(request,id):
     current_user= request.user
-    user = User.objects.get(id=id)
-    profile = Profile.objects.get(user=user)
+    # neighborhood=Neighborhood.objects.get(id=id)
     form = PostForm()
     if request.method == 'POST':
         form = PostForm(request.POST,request.FILES)
         if form.is_valid():
-            form.save()
+            new=form.save(commit=False)
+            new.user=current_user
+            # new.neighborhood=neighborhood
+            new.save()
+            
 
             return redirect('home')
         else:
@@ -193,19 +210,27 @@ def post_form(request,id):
     else:
         context = {
             'form': form,
-            'user': user,
-            'profile': profile
+            # 'user': user,
+            # 'profile': profile
         }
         return render(request, 'post_form.html', context)
 
 def join_neighborhood(request,id):
     neighborhood = Neighborhood.objects.get(id=id)
-    request.user.profile.neighborhood = neighborhood
+    request.user.profile.hood = neighborhood
     request.user.profile.save()
-    return redirect('home')
+    print(request.user.profile.hood.name)
+    return redirect('dashboard')
 
 def leave_neighborhood(request,id):
-    neighborhood = Neighborhood.objects.get(id=id)
+    neighborhood = get_object_or_404(Neighborhood,id=id)
     request.user.profile.neighborhood = None
     request.user.profile.save()
-    return redirect('home')
+    return redirect('dashboard')
+
+def dashboard(request):
+    
+    neighborhoods=Neighborhood.objects.all()
+
+    return render(request,'dashboard.html',{'neighborhoods':neighborhoods})
+

@@ -8,12 +8,24 @@
         <h2  class="header-content"   >We are a tight-knit community that will enhance your life experience.</h2>
         <br>
         <div class="row">
-            <div class="col-md-6">
-<a href="{% url 'neighborhood_form' user.id %} "><button class="join">Join a Neighborhood</button></a>
+            
+            
+            
+        <br>
+        <div class="row">
+            
+            
+            <div class="col-md-3">
+<a href=" {% url 'dashboard' %}"><button class="join">Create a new Neighborhood</button></a>
             </div> 
-            <div class="col-md-6">
-                <a href="{% url 'business_form' user.id %}  "><button class="registerb">Register your Business </button></a>
-            </div>      
+            <div class="col-md-3">
+                <a href=" {% url 'dashboard' %}"><button class="join">Join a Neighborhood</button></a>  
+            </div> 
+            <div class="col-md-3">
+                <a href="{% url 'business_form' %}  "><button class="registerb">Register your Business </button></a>
+            </div> 
+            <br>
+               
         </div>
         
         

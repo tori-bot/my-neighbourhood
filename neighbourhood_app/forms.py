@@ -9,12 +9,12 @@ class BusinessForm(forms.ModelForm):
 class NeighborhoodForm(forms.ModelForm):
     class Meta:
         model=Neighborhood
-        fields = ('name','landmark','location','occupants','user')
+        fields = ('name','landmark','location')
 
 class BusinessForm(forms.ModelForm):
     class Meta:
         model=Business
-        fields = ('name','picture','user','neighborhood','email')
+        fields = ('name','picture','email')
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -23,4 +23,4 @@ class ProfileForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model=Posts
-        fields = ('user','neighborhood','title','image','post')
+        fields = ('title','image','post')

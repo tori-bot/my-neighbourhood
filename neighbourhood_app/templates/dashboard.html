@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <img class="people" src="https://media.istockphoto.com/vectors/crowd-of-people-seamless-pattern-vector-id1301077856?k=20&m=1301077856&s=612x612&w=0&h=hb2s4cOUYawb8w_gGpUYwJGx3G8INlA9jJcTwL-9huQ=" alt="">
+    </div>
+    <div class="col-md-6">
+        <h1>My Neighborhood Dashboard</h1><br>
+        <p>Hello stranger! Welcome to My Neighborhood. <br> Join a neighborhood of your choice. <br> If yours is not listed, you can also create one and invite your neighbors to this exciting community.</p>
+        <br>
+        <div class="row">
+    <div class="col-md-4"><a  href="{% url 'neighborhood_form' %}"><button class="join"> Create neighborhood</button></a> </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4"><a  href="{% url 'home' %}"><button class="join"> Back to home</button></a> </div></div>
+    <hr>
+
+     <div class="row"> 
+    {% for item in neighborhoods %}
+      
+            <div class="card dashcard">
+                <h4>{{item.name}}</h4>
+<a class="user_link" id="leavebtn" href="{% url 'neighborhood' item.id %} "><p  >Go to neighborhood</p> </a>
+    <br>
+    {% if request.user.profile.hood == item %}
+    <div ><a class="user_link" href="{% url 'leave_neighborhood' item.id %} "><button class="leave"> leave neighborhood</button></a> </div>
+    {% elif not request.user.profile.neighborhood %} 
+    <div ><a class="user_link" href="{% url 'join_neighborhood' item.id %} "><button class="join"> Join neighborhood</button></a> </div>
+    
+    {% endif %}
+     </div>
+            {% endfor %}
+            
+        
+    
+        </div>
+           
+    </div>
+</div>
+
+
+            {% endblock %}

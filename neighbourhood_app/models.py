@@ -8,9 +8,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-
-
-
 # Create your models here.
 
 
@@ -18,8 +15,9 @@ class Neighborhood(models.Model):
     name = models.CharField(max_length=50)
     landmark=models.ImageField(upload_to='landmarks/',null=True, blank=True)
     location=models.CharField(max_length=50,null=True)
-    occupants=models.IntegerField()
-    user=models.OneToOneField(User,on_delete=models.CASCADE,null=True)
+    # user=models.OneToOneField(User,on_delete=models.CASCADE,null=True,related_name='neighbors')
+    admin=models.ForeignKey('Profile',on_delete=models.CASCADE,null=True)
+    occupants=models.IntegerField(default=0)
     
 
     def create_neighbourhood(self):
@@ -51,7 +49,7 @@ class Business(models.Model):
     name=models.CharField(max_length=50)
     picture=models.ImageField(upload_to='businesspics/',null=True, blank=True)
     user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
-    neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE,blank=True,null=True)
     email=models.EmailField(max_length=100)
 
     def create_business(self):
@@ -89,6 +87,7 @@ class Profile(models.Model):
     user=models.OneToOneField(User,primary_key=True,on_delete=models.CASCADE)   
     profile_picture=models.ImageField(upload_to='profile_pictures/',default='default.jpg',null=True) 
     bio=models.TextField()
+    hood=models.ForeignKey(Neighborhood,on_delete=models.CASCADE,null=True)
     
     @receiver(post_save, sender=User) 
     def create_profile(sender, instance, created, **kwargs):
@@ -123,8 +122,8 @@ class Profile(models.Model):
         return self.user
 
 class Posts(models.Model):
-    user=models.ForeignKey(User, related_name="posts",on_delete=models.CASCADE)
-    neighborhood=models.ForeignKey(Neighborhood, related_name="neighbor_posts", on_delete=models.CASCADE)
+    user=models.ForeignKey(User, related_name="posts",on_delete=models.CASCADE,null=True)
+    neighborhood=models.ForeignKey(Neighborhood, related_name="neighbor_posts", on_delete=models.CASCADE,null=True,blank=True)
     title=models.CharField(max_length=100)
     image=models.ImageField(upload_to='post_images/')
     post=models.TextField(null=True, blank=True)
@@ -139,7 +138,21 @@ class Posts(models.Model):
 
     def save_post(self):
         self.user
-        
+
+    @classmethod
+    def get_posts(cls,neighborhood):
+        posts = Posts.objects.filter(neighborhood=neighborhood)
+        return posts
+
+
     def __str__(self):
         return self.title
+
+# class Admin(models.Model):
+#     name = models.CharField(max_length=100,null=True)
+#     email=models.EmailField(max_length=50,null=True)
+#     hood=models.OneToOneField(Neighborhood,on_delete=models.CASCADE,null=True)
+
+#     def __str__(self):
+#         return self.name
     

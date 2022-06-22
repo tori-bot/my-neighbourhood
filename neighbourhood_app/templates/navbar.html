@@ -19,9 +19,11 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
-          
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'neighborhood' user.id %}">Neighborhood</a>
+            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">Neighborhood</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'business' user.id %}" >Business</a>
@@ -33,9 +35,9 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="{% url 'profile' %} ">My Profile</a></li>
               <li><a class="dropdown-item" href="{% url 'profile_form' user.id %}">Update Profile</a></li>
-              <li><a class="dropdown-item" href="{% url 'neighborhood_form' user.id %}">Switch Neighborhood</a></li>
+              <li><a class="dropdown-item" href="{% url 'neighborhood_form'  %}">Switch Neighborhood</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="logout/">Logout</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
             </ul>
           </li>
           
